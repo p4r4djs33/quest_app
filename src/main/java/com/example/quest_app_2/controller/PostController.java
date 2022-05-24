@@ -1,7 +1,7 @@
 package com.example.quest_app_2.controller;
 
-import com.example.quest_app_2.entity.Post;
-import com.example.quest_app_2.request.PostCreateRequest;
+import com.example.quest_app_2.dto.PostDTO;
+import com.example.quest_app_2.mapper.post.PostMapper;
 import com.example.quest_app_2.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,18 +15,31 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+    @Autowired
+    private PostMapper postMapper;
+
     @GetMapping("")
-    public List<Post> getAllPosts(@RequestParam Optional<Long> userId) {
+    public List<PostDTO> getAllPosts(@RequestParam Optional<Long> userId) {
         return postService.getAllPosts(userId);
     }
 
     @PostMapping
-    public Post createOnePost(@RequestBody PostCreateRequest postCreateRequest) {
-        return postService.createOnePost(postCreateRequest);
+    public PostDTO createOnePost(@RequestBody PostDTO postDTO) {
+        return postService.createOnePost(postDTO);
     }
 
     @GetMapping("/{postId}")
-    public Post getOnePost(@PathVariable Long postId) {
-        return postService.getOnePostById(postId);
+    public PostDTO getOnePost(@PathVariable Long postId) {
+        return postMapper.toDTO(postService.getOnePostById(postId));
+    }
+
+    @PutMapping("/{postId}")
+    public PostDTO updateOnePost(@PathVariable Long postId, @RequestBody PostDTO postDTO) {
+        return postMapper.toDTO(postService.updateOnePostById(postId, postDTO)) ;
+    }
+
+    @DeleteMapping("/{postId}")
+    public void deleteOnePost(@PathVariable Long postId) {
+        postService.deleteOnePostById(postId);
     }
 }

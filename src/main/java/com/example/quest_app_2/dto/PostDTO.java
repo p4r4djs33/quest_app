@@ -1,9 +1,9 @@
-package com.example.quest_app_2.request;
+package com.example.quest_app_2.dto;
 
 import lombok.Data;
 
 @Data
-public class PostCreateRequest {
+public class PostDTO {
     private Long id;
     private String text;
     private String title;
