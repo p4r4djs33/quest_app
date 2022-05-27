@@ -8,4 +8,5 @@ public class PostDTO {
     private String text;
     private String title;
     private Long userId;
+    private String userName;
 }

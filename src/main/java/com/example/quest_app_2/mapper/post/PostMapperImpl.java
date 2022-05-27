@@ -83,6 +83,7 @@ public class PostMapperImpl implements PostMapper {
             postDTO.setUserId(post.getUser().getId());
             postDTO.setTitle(post.getTitle());
             postDTO.setText(post.getText());
+            postDTO.setUserName(post.getUser().getUserName());
             return postDTO;
         }
     }
